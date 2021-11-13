@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+$footer-padding: 0.5rem;
+
+.full-height-screen {
+    min-height: 100vh !important;
+}
+
+@import "../../node_modules/bulma/bulma.sass";
+
+$custom-padding-navbar: $navbar-height;
+
+@mixin main-screen-form-center{
+    width: 100%;
+}
+
+.login-form-menu {
+    @include main-screen-form-center();
+    max-width: 600px;
+}
+
+.register-form-menu {
+    @include main-screen-form-center();
+    max-width: 700px;
+}
+
+.custom-has-navbar-fixed-top {
+    padding-top: $custom-padding-navbar;
+}
+
+$minscreen: 1023px;
+$mediumscreen: 1215px;
+$widescreen: 1407px;
+
+.custom-container {
+    @media screen and (max-width: $minscreen) {
+        min-width: 100%;
+    }
+
+    @media screen and (min-width: #{$minscreen + 1px}) and (max-width: $mediumscreen) {
+        min-width: 960px;
+    }
+
+    @media screen and (min-width: #{$mediumscreen + 1px}) and (max-width: $widescreen) {
+        min-width: 1152px;
+    }
+
+    @media screen and (min-width: #{$widescreen + 1px}){
+        min-width: 1344px;
+    }
+}
+
+.loader {
+    min-width: 100px;
+    min-height: 100px;
+}
+
