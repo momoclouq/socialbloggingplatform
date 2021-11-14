@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api_loginWithData, api_signupWithData } from "../../api/authenticate/api_authenticate";
+import { api_getCurrentUser, api_loginWithData, api_logout, api_signupWithData } from "../../api/authenticate/api_authenticate";
 import { handleError } from "../../api/blogger/api_blogger";
 
 export const signup = createAsyncThunk(
@@ -20,6 +20,24 @@ export const login = createAsyncThunk(
     }
 )
 
+export const logout = createAsyncThunk(
+    'user/logout',
+    async ({}, {rejectWithValue}) => {
+        let output = await handleError(api_logout, {}, rejectWithValue);
+
+        return output;
+    }
+)
+
+export const loadCurrentUser = createAsyncThunk(
+    'user/loadCurrentUser',
+    async (token, {rejectWithValue}) => {
+        let user = await handleError(api_getCurrentUser, {token}, rejectWithValue);
+
+        return user;
+    }
+)
+
 export const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -28,14 +46,24 @@ export const userSlice = createSlice({
         user: {},
         isSigningup: false,
         isLoggingin: false,
+        isLoggingout: false,
         hasErrorSignup: false,
         hasErrorLogin: false,
+        hasErrorLogout: false,
         signupSuccess: false,
+        logoutSuccess: false,
+        //current user
+        isLoadingCurrentUser: false,
+        hasErrorLoadingUser: false,
+        //error message
         errorMessage: ""
     },
     reducers: {
         turnOffSignupSuccess: (state) => {
             state.signupSuccess = false;
+        },
+        turnOffLogoutSuccess: (state) => {
+            state.logoutSuccess = false;
         },
         resetData: (state) => {
             state.isSigningup = false;
@@ -76,6 +104,38 @@ export const userSlice = createSlice({
             state.hasErrorLogin = true;
             state.errorMessage = action.payload.error;
         })
+        .addCase(logout.pending, (state, action) => {
+            state.isLoggingout = true;
+            state.hasErrorLogout = false;
+        })
+        .addCase(logout.fulfilled, (state, action) => {
+            state.isLoggingout = false;
+            state.hasErrorLogout = false;
+            state.logoutSuccess = true;
+            state.isAuthenticated = false;
+            state.token =  "";
+            state.user = {};
+        })
+        .addCase(logout.rejected, (state, action) => {
+            state.isLoggingin = false;
+            state.hasErrorLogout = true;
+        })
+        .addCase(loadCurrentUser.pending, (state) => {
+            state.isLoadingCurrentUser = true;
+            state.hasErrorLoadingUser = false;
+        })
+        .addCase(loadCurrentUser.fulfilled, (state, action) => {
+            state.isLoadingCurrentUser = false;
+            state.hasErrorLoadingUser = false;
+            state.user = action.payload.data;
+        })
+        .addCase(loadCurrentUser.rejected, (state) => {
+            state.isLoadingCurrentUser = false;
+            state.hasErrorLoadingUser = true;
+            state.isAuthenticated = false;
+            state.token =  "";
+            state.user = {};
+        })
     }
 })
 
@@ -92,6 +152,13 @@ export const isAuthenticated = (state) => state.user.isAuthenticated;
 export const selectToken = (state) => state.user.token;
 export const selectUser = (state) => state.user.user;
 
-export const { turnOffSignupSuccess, resetData } = userSlice.actions;
+export const hasErrorLogout = (state) => state.user.hasErrorLogout;
+export const isLoggingout = (state) => state.user.isLoggingout;
+export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
+
+export const isLoadingCurrentUser = (state) => state.user.isLoadingCurrentUser;
+export const hasErrorLoadingUser = (state) => state.user.hasErrorLoadingUser;
+
+export const { turnOffSignupSuccess, turnOffLogoutSuccess, resetData } = userSlice.actions;
 
 export default userSlice.reducer;

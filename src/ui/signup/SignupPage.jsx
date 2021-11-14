@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 import RegisterForm from "./RegisterForm";
-import { hasErrorSignup, isSigningup, resetData, selectErrorMessage, selectSignupSuccess, signup, turnOffSignupSuccess } from "../../features/slices/user/userSlice";
+import { hasErrorSignup, isAuthenticated, isSigningup, resetData, selectErrorMessage, selectSignupSuccess, signup, turnOffSignupSuccess } from "../../features/slices/user/userSlice";
 import { useSelector } from "react-redux";
 import SignupLoading from "./SignupLoading";
 import SignupError from "./SignupError";
 import { useEffect } from "react";
+import { Redirect } from "react-router";
 
 const SignupPage = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const SignupPage = () => {
     const errorSignup = useSelector(hasErrorSignup);
     const errorMessage = useSelector(selectErrorMessage);
     const success = useSelector(selectSignupSuccess);
+    const authenticatedState = useSelector(isAuthenticated);
   
     const signupAction = (data) => {
         dispatch(signup(data));
@@ -21,6 +23,7 @@ const SignupPage = () => {
         dispatch(resetData());
     }, [])
 
+    if(authenticatedState) return <Redirect to="/manage/account" />;
     if(signingup) return <SignupLoading />;
 
     if(success) {

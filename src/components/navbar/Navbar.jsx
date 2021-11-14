@@ -1,5 +1,11 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { isAuthenticated, loadCurrentUser, selectToken, selectUser } from "../../features/slices/user/userSlice";
+import AuthBtnSection from "./AuthBtnSection";
+import ManageSection from "./ManageSection";
 
 const Burger = ({active, setIsActive}) => {
     return (
@@ -22,6 +28,9 @@ const Burger = ({active, setIsActive}) => {
 
 const Navbar = () => {
     const [isActive, setIsActice] = useState(false);
+    const authenticatedState = useSelector(isAuthenticated);
+
+    const section = authenticatedState ? <ManageSection /> : <AuthBtnSection />
 
     return(
         <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation"> 
@@ -61,10 +70,7 @@ const Navbar = () => {
 
                 <div className="navbar-end">
                     <div className="navbar-item">
-                        <div className="buttons">
-                            <Link to="/signup" className="button is-link is-light">Become a blogger</Link>
-                            <Link to="/login" className="button is-light">Log in</Link>
-                        </div>
+                        {section}
                     </div>
                 </div>
             </div>

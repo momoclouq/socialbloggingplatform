@@ -3,7 +3,7 @@ import {
     Route
 } from "react-router-dom";
 
-import { useRouteMatch } from "react-router";
+import { Redirect, useRouteMatch } from "react-router";
 import AccountRouter from "./AccountRouter";
 import ManagePostRouter from "./ManagePostRouter";
 import { useSelector } from "react-redux";
@@ -13,7 +13,7 @@ const ProtectedRouter = () => {
     let {path, url} = useRouteMatch();
     let authenticated = useSelector(isAuthenticated);
 
-    if(!authenticated) 
+    if(!authenticated) return <Redirect to="/login" />
     
     return(
         <Switch>
