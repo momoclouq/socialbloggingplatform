@@ -12,6 +12,7 @@ import { isAuthenticated, selectUser } from "../../features/slices/user/userSlic
 import DeletePostModal from "../../components/modals/post_related/DeletePostModal";
 import { useState } from "react";
 import { selectDeletePostSuccess, turnOffDeletePostSuccess } from "../../features/slices/post/managePostSlice";
+import { Link } from "react-router-dom";
 
 const PostDetailPage = () => {
     let dispatch = useDispatch();
@@ -32,7 +33,7 @@ const PostDetailPage = () => {
         if(authenticated && post.author._id === user._id){ 
             return(
             <div className="box mt-2 p-2 container custom-container is-flex has-background-grey-light">
-                <button className="button mr-2 is-primary">Update post</button>
+                <Link to={`/manage/post/update/${postid}`}><button className="button mr-2 is-primary">Update post</button></Link>
                 <button onClick={() => {setDisplayDelete(true)}} className="button is-danger">Delete post</button>
             </div>
         )} else {
@@ -49,10 +50,6 @@ const PostDetailPage = () => {
             dispatch(turnOffDeletePostSuccess());
         }
     }, [deletePostSuccess]);
-
-    // if(deletePostSuccess){
-    //     return <Redirect to="/manage/post" />;
-    // }
 
     if(errorDetail) return <PostDetailError error={errorMessage} />;
     if(loadingDetail || Object.keys(post).length === 0) return <PostDetailLoading />;

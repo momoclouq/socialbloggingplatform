@@ -63,7 +63,7 @@ const DeleteAccountModal = ({state, actionClose}) => {
 
                     <div className="is-flex is-justify-content-space-between">
                         <div className="control">
-                            <button onClick={actionClose} className="button is-dark">Cancel</button>
+                            <button type="button" onClick={actionClose} className="button is-dark">Cancel</button>
                         </div>
                         <div className="control">
                             <button type="submit" className="button is-danger">Delete account</button>

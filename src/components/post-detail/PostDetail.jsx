@@ -1,6 +1,13 @@
+import { useEffect, useRef } from "react";
 import Timeformatted from "../timeformat/Timeformatted";
 
 const PostDetail = ({post}) => {
+    const block = useRef(null);
+
+    useEffect(() => {
+        block.current.innerHTML = post.content;
+    }, [post])
+
     return(
         <div className="container custom-container">
             <div className="content pt-4">
@@ -14,7 +21,7 @@ const PostDetail = ({post}) => {
                     </div>
                 </div>
                 <hr />
-                <div className="block">{post.content}</div>
+                <div className="block" ref={block}></div>
                 <hr />
             </div>
         </div>

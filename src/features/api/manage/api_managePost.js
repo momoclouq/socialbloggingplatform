@@ -19,3 +19,15 @@ export const api_deletePost = async({token, id}) => {
 
     return oldPost;
 }
+
+export const api_createPost = async ({token, data}) => {
+    let post = await instance(token).post("post", data);
+
+    return post;
+}
+
+export const api_updatePost = async({token, id, data}) => {
+    let post = await instance(token).put(`post/${id}`, data);
+
+    return post;
+}

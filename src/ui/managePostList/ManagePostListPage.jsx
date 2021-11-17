@@ -2,6 +2,9 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
+import AddNewButton from "../../components/buttons/addNew/AddNewBtn"
+import ManagePostDropdown from "../../components/dropdowns/ManagePostDropdown"
 import calculateMaxPage from "../../components/helper/calculateMaxPage"
 import BasicPagination from "../../components/pagination/BasicPagination"
 import PostGrid from "../../components/post-grid/PostGrid"
@@ -33,6 +36,7 @@ const ManagePostListPage = () => {
             <MessageCustom>
                 Your posts from newest to oldest
             </MessageCustom>
+            <ManagePostDropdown />
 
             <section className="section has-background-light p-5">
                 <PostGrid posts={posts.data}/>
