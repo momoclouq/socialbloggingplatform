@@ -10,8 +10,7 @@ const ManageSection = () => {
     const user = useSelector(selectUser);
 
     const logoutFn = () => {
-        console.log("herer");
-        dispatch(logout());
+        dispatch(logout(token));
     }
 
     useEffect(() => {

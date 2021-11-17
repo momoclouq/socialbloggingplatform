@@ -23,7 +23,7 @@ const LoginPage = () => {
         dispatch(login(data));
     }
 
-    if(authenticatedState) return <Redirect to="/manage/account" />
+    if(authenticatedState) return <Redirect to="/manage" />
     if(loggingin) return <LoginLoading />;
 
     if(logoutSuccessState){

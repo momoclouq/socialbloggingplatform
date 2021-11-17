@@ -2,6 +2,7 @@ import StyledLink from "../styled-link/StyledLink";
 import Timeformatted from "../timeformat/Timeformatted";
 
 const PostCard = ({post}) => {
+
     return(
         <div className="column is-half">
             <div className="card">

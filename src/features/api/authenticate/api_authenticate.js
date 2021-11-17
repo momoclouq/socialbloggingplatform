@@ -19,8 +19,8 @@ export const api_loginWithData = async (data) => {
     return token;
 }
 
-export const api_logout = async () => {
-    let output = await axios.post(host + "logout");
+export const api_logout = async ({token}) => {
+    let output = await instance(token).post("logout");
 
     return output;
 }

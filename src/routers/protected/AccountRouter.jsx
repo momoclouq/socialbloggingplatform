@@ -1,5 +1,5 @@
 import { Route, Switch, useRouteMatch } from "react-router"
-import BloggerAccountDetailPage from "../../ui/bloggerAccountDetail/BloggerAccountDetailPage";
+import ManageAccountPage from "../../ui/manageAccount/ManageAccountPage";
 
 const AccountRouter = () => {
     const {path, url} = useRouteMatch();
@@ -7,7 +7,7 @@ const AccountRouter = () => {
     return(
         <Switch>
             <Route exact path={path}>
-                <BloggerAccountDetailPage />
+                <ManageAccountPage />
             </Route>
         </Switch>
     )

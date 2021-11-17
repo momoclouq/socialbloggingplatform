@@ -8,6 +8,7 @@ import AccountRouter from "./AccountRouter";
 import ManagePostRouter from "./ManagePostRouter";
 import { useSelector } from "react-redux";
 import { isAuthenticated } from "../../features/slices/user/userSlice";
+import ManageDashBoardPage from "../../ui/manageDash/ManageDashBoardPage";
 
 const ProtectedRouter = () => {
     let {path, url} = useRouteMatch();
@@ -17,6 +18,9 @@ const ProtectedRouter = () => {
     
     return(
         <Switch>
+            <Route exact path={path}>
+                <ManageDashBoardPage />
+            </Route>
             <Route path={`${path}/account`}>
                 <AccountRouter />
             </Route>

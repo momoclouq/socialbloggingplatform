@@ -70,7 +70,7 @@ export const bloggerSlice = createSlice({
         .addCase(loadBloggerDetail.rejected, (state, action) => {
             state.isLoadingDetail = false;
             state.hasErrorDetail = true;
-            state.errorMessage = action.payload;
+            state.errorMessage = action.payload.error;
         })
         .addCase(heartBlogger.fulfilled, (state, action) => {
             if(!state.bloggerDetail.heart) state.bloggerDetail.heart = 1;

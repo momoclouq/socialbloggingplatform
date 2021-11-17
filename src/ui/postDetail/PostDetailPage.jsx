@@ -8,6 +8,10 @@ import { hasErrorDetail, isLoadingDetail, loadPostDetail, selectErrorMessage, se
 import PostDetailError from "./PostDetailError";
 import PostDetailLoading from "./PostDetailLoading";
 import CreateCommentForm from "./commentSection/CreateCommentForm";
+import { isAuthenticated, selectUser } from "../../features/slices/user/userSlice";
+import DeletePostModal from "../../components/modals/post_related/DeletePostModal";
+import { useState } from "react";
+import { selectDeletePostSuccess, turnOffDeletePostSuccess } from "../../features/slices/post/managePostSlice";
 
 const PostDetailPage = () => {
     let dispatch = useDispatch();
@@ -16,16 +20,48 @@ const PostDetailPage = () => {
     let errorDetail = useSelector(hasErrorDetail);
     let loadingDetail = useSelector(isLoadingDetail);
     let errorMessage = useSelector(selectErrorMessage);
+    const deletePostSuccess = useSelector(selectDeletePostSuccess);
+
+    const authenticated = useSelector(isAuthenticated);
+    const user = useSelector(selectUser);
+
+    //delete post modal
+    const [displayDelete, setDisplayDelete] = useState(false);
+
+    let optionsPanel = () => {
+        if(authenticated && post.author._id === user._id){ 
+            return(
+            <div className="box mt-2 p-2 container custom-container is-flex has-background-grey-light">
+                <button className="button mr-2 is-primary">Update post</button>
+                <button onClick={() => {setDisplayDelete(true)}} className="button is-danger">Delete post</button>
+            </div>
+        )} else {
+            return "";
+        }
+    }
 
     useEffect(() => {
         dispatch(loadPostDetail(postid));
     }, [])
 
-    if(loadingDetail || Object.keys(post).length === 0) return <PostDetailLoading />;
-    if(errorDetail) return <PostDetailError error={errorMessage} />;
+    useEffect(() => {
+        if(deletePostSuccess) {
+            dispatch(turnOffDeletePostSuccess());
+        }
+    }, [deletePostSuccess]);
 
+    // if(deletePostSuccess){
+    //     return <Redirect to="/manage/post" />;
+    // }
+
+    if(errorDetail) return <PostDetailError error={errorMessage} />;
+    if(loadingDetail || Object.keys(post).length === 0) return <PostDetailLoading />;
+    
     return(
         <div className="container is-fluid">
+            {optionsPanel()}
+            <DeletePostModal state={displayDelete} actionClose={() => {setDisplayDelete(false)}} id={postid} />
+
             <PostDetail post={post}/>
             <PostComments postid={postid}/>
             <CreateCommentForm postid={postid} />

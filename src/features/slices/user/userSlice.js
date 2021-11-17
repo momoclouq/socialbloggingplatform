@@ -22,8 +22,8 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
     'user/logout',
-    async ({}, {rejectWithValue}) => {
-        let output = await handleError(api_logout, {}, rejectWithValue);
+    async (token, {rejectWithValue}) => {
+        let output = await handleError(api_logout, {token}, rejectWithValue);
 
         return output;
     }
@@ -72,6 +72,11 @@ export const userSlice = createSlice({
             state.hasErrorSignup = false;
             state.signupSuccess = false;
             state.errorMessage = "";
+        },
+        logoutCold: (state) => {
+            state.isAuthenticated = false;
+            state.token =  "";
+            state.user = {};
         }
     },
     extraReducers: (builder) => {
@@ -119,6 +124,7 @@ export const userSlice = createSlice({
         .addCase(logout.rejected, (state, action) => {
             state.isLoggingin = false;
             state.hasErrorLogout = true;
+            console.log(action.payload);
         })
         .addCase(loadCurrentUser.pending, (state) => {
             state.isLoadingCurrentUser = true;
@@ -159,6 +165,6 @@ export const selectLogoutSuccess = (state) => state.user.logoutSuccess;
 export const isLoadingCurrentUser = (state) => state.user.isLoadingCurrentUser;
 export const hasErrorLoadingUser = (state) => state.user.hasErrorLoadingUser;
 
-export const { turnOffSignupSuccess, turnOffLogoutSuccess, resetData } = userSlice.actions;
+export const { turnOffSignupSuccess, turnOffLogoutSuccess, resetData, logoutCold } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -19,8 +19,11 @@ const BloggerDetailPage = () => {
         dispatch(loadBloggerDetail(bloggerid));
     }, [])
 
+    if(errorDetail){
+        return <BloggerDetailError error={errorMessage} />;
+    } 
     if(loadingDetail || Object.keys(blogger).length === 0) return <BloggerDetailLoading />;
-    if(errorDetail) return <BloggerDetailError error={errorMessage} />;
+    
 
     return(
         <div className="container is-fluid custom-container">
@@ -35,7 +38,6 @@ const BloggerDetailPage = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
     )
 }
