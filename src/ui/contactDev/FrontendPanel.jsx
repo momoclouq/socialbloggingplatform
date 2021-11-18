@@ -11,8 +11,7 @@ const FrontendPanel = () => {
             <div className="subtitle"><a href="https://sass-lang.com">Sass</a></div>
             <div className="mb-2">And many more ...</div>
 
-            <div><a href="">Github for public website (view post, etc)</a></div>
-            <div><a href="">Github for private website (blogger to write post, etc)</a></div>
+            <div><a href="https://github.com/momoclouq/socialbloggingplatform">Github for frontend</a></div>
         </div>
     )
 }

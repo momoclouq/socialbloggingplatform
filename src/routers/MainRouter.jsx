@@ -4,17 +4,14 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from "react-router-dom";
 import Footer from "../components/footer/Footer";
 
 import Navbar from "../components/navbar/Navbar";
-import { loadCurrentUser, loadCurrentUserIni } from "../features/slices/user/userSlice";
-import BloggerListPage from "../ui/bloggerList/BloggerListPage";
+import { loadCurrentUserIni } from "../features/slices/user/userSlice";
 import ContactDevPage from "../ui/contactDev/ContactDevPage";
 import IndexPage from "../ui/index/IndexPage";
 import LoginPage from "../ui/login/LoginPage";
-import PostListPage from "../ui/postList/PostListPage";
 import SignupPage from "../ui/signup/SignupPage";
 import BloggerRouter from "./BloggerRouter";
 import PostRouter from "./PostRouter";
@@ -32,7 +29,7 @@ const MainRouter = () => {
       }, []);
 
     return (
-        <Router>
+        <Router basename={'/socialbloggingplatform/'}>
             <div className="full-height-screen is-flex is-flex-direction-column custom-has-navbar-fixed-top">
                 <Navbar />
 

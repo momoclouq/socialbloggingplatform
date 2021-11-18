@@ -9,7 +9,7 @@ const BackendPanel = () => {
             <div className="subtitle"><a className="has-text-link-light" href="https://express-validator.github.io/docs/">Express-validator</a></div>
             <div className="has-text-link-light mb-2">And many more ...</div>
 
-            <div><a className="has-text-link-light" href="">Github for private website (blogger to write post, etc)</a></div>
+            <div><a href="https://github.com/momoclouq/blog-backend" className="has-text-link-light" href="">Github for private website (blogger to write post, etc)</a></div>
         </div>
     )
 }
