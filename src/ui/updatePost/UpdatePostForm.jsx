@@ -64,7 +64,6 @@ const UpdatePostForm = ({post, submitAction}) => {
             {
                 updatePostSuccessState ? <div className="box has-background-success">Post updated</div> : ""
             }
-            <div className="title">Update the post</div>
             <div className="field">
                 <FormLabel text="Title"/>
                 <div className="control">

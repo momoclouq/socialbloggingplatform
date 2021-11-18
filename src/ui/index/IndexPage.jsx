@@ -19,7 +19,7 @@ const IndexPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(loadPostList({currentPage, mode: "default"}));
+        dispatch(loadPostList({currentPage, mode: "latest"}));
     }, [currentPage])
 
     if(errorList) return <IndexError error={errorMessage} />;

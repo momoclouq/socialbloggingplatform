@@ -8,6 +8,7 @@ import ManageAccountLoading from "./ManageAccountLoading";
 import ChangePasswordModal from "../../components/modals/account_related/ChangePasswordModal";
 import { useState } from "react";
 import DeleteAccountModal from "../../components/modals/account_related/DeleteAccountModal";
+import ReturnButton from "../../components/buttons/return/ReturnBtn";
 
 const ManageAccountPage = () => {
     const dispatch = useDispatch();
@@ -40,6 +41,9 @@ const ManageAccountPage = () => {
         <ChangePasswordModal state={displayChange} actionClose={() => {setDisplayChange(false)}} />
         <DeleteAccountModal state={displayDelete} actionClose={() => {setDisplayDelete(false)}} actionSubmit={() => {}} />
         <div className="container custom-container">
+            <div className="mt-3">
+                <ReturnButton to="/manage" />
+            </div>
             <div className="container p-4">
                 <div className="columns">
                     <div className="column is-full-mobile is-three-fifths-mobile">

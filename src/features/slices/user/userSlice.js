@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api_getCurrentUser, api_loginWithData, api_logout, api_signupWithData } from "../../api/authenticate/api_authenticate";
 import { handleError } from "../../api/blogger/api_blogger";
 
+let localStorage = window.localStorage;
+
 export const signup = createAsyncThunk(
     'user/signup',
     async (data, { rejectWithValue }) => {
@@ -35,6 +37,15 @@ export const loadCurrentUser = createAsyncThunk(
         let user = await handleError(api_getCurrentUser, {token}, rejectWithValue);
 
         return user;
+    }
+)
+
+export const loadCurrentUserIni = createAsyncThunk(
+    'user/loadCurrentUserIni',
+    async (token, {rejectWithValue}) => {
+        let user = await handleError(api_getCurrentUser, {token}, rejectWithValue);
+
+        return {token, user};
     }
 )
 
@@ -103,6 +114,9 @@ export const userSlice = createSlice({
             state.hasErrorLogin = false;
             state.token = action.payload.data.token;
             state.isAuthenticated = true;
+
+            //save token to localStorage
+            localStorage.setItem("token", action.payload.data.token);
         })
         .addCase(login.rejected, (state, action) => {
             state.isLoggingin = false;
@@ -120,11 +134,13 @@ export const userSlice = createSlice({
             state.isAuthenticated = false;
             state.token =  "";
             state.user = {};
+
+            //remove token from localStorage
+            localStorage.removeItem("token");
         })
         .addCase(logout.rejected, (state, action) => {
             state.isLoggingin = false;
             state.hasErrorLogout = true;
-            console.log(action.payload);
         })
         .addCase(loadCurrentUser.pending, (state) => {
             state.isLoadingCurrentUser = true;
@@ -141,6 +157,18 @@ export const userSlice = createSlice({
             state.isAuthenticated = false;
             state.token =  "";
             state.user = {};
+
+            //remove token from localStorage
+            localStorage.removeItem("token");
+        })
+        .addCase(loadCurrentUserIni.fulfilled, (state, action) => {
+            state.token = action.payload.token;
+            state.isAuthenticated = true;
+            state.user = action.payload.user;
+        })
+        .addCase(loadCurrentUserIni.rejected, (state) => {
+            //remove token from localStorage
+            localStorage.removeItem("token");
         })
     }
 })

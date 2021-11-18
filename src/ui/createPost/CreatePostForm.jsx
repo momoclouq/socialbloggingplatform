@@ -1,5 +1,5 @@
 import { Editor } from "@tinymce/tinymce-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import FormLabel from "../../components/typo/form-label/FormLabel";
 
 const CreatePostForm = ({submitAction}) => {
@@ -21,8 +21,7 @@ const CreatePostForm = ({submitAction}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="title">Create a new post</div>
+        <form className="mt-3" onSubmit={handleSubmit}>
             <div className="field">
                 <FormLabel text="Title"/>
                 <div className="control">

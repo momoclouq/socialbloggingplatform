@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import AddNewButton from "../../components/buttons/addNew/AddNewBtn"
+import ReturnButton from "../../components/buttons/return/ReturnBtn"
 import ManagePostDropdown from "../../components/dropdowns/ManagePostDropdown"
 import calculateMaxPage from "../../components/helper/calculateMaxPage"
 import BasicPagination from "../../components/pagination/BasicPagination"
@@ -33,10 +34,14 @@ const ManagePostListPage = () => {
 
     return(
         <div className="container custom-container">
+            <div className="mt-3 is-flex is-justify-content-space-between">
+                <ReturnButton to="/manage" />
+                <ManagePostDropdown />
+            </div>
+
             <MessageCustom>
                 Your posts from newest to oldest
             </MessageCustom>
-            <ManagePostDropdown />
 
             <section className="section has-background-light p-5">
                 <PostGrid posts={posts.data}/>

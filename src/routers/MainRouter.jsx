@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
     BrowserRouter as Router,
     Switch,
@@ -8,6 +9,7 @@ import {
 import Footer from "../components/footer/Footer";
 
 import Navbar from "../components/navbar/Navbar";
+import { loadCurrentUser, loadCurrentUserIni } from "../features/slices/user/userSlice";
 import BloggerListPage from "../ui/bloggerList/BloggerListPage";
 import ContactDevPage from "../ui/contactDev/ContactDevPage";
 import IndexPage from "../ui/index/IndexPage";
@@ -18,7 +20,17 @@ import BloggerRouter from "./BloggerRouter";
 import PostRouter from "./PostRouter";
 import ProtectedRouter from "./protected/ProtectedRouter";
 
+const localStorage = window.localStorage;
+
 const MainRouter = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        //try to use token stored in the local storage
+        let token = localStorage.getItem("token");
+        if(token) dispatch(loadCurrentUserIni(token));
+      }, []);
+
     return (
         <Router>
             <div className="full-height-screen is-flex is-flex-direction-column custom-has-navbar-fixed-top">

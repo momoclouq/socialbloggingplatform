@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import ReturnButton from "../../components/buttons/return/ReturnBtn";
 import NormalLoader from "../../components/loader/NormalLoader";
 import ErrorMessage from "../../components/typo/error-message/ErrorMessage";
 import { createPost, hasErrorCreatePost, isCreatingPost, selectCreatePostSuccess, selectErrorMessage, turnOffCreatePostSuccess } from "../../features/slices/post/managePostSlice";
@@ -38,6 +39,10 @@ const CreatePostPage = () => {
             {
                 createPostSuccessState ? <div className="box has-background-success">Post created</div> : ""
             }
+            <div className="mt-3">
+                <ReturnButton to="/manage/post" />
+                <span className="ml-3 title">Create a new post</span>
+            </div>
             <CreatePostForm submitAction={createAction}/>
         </div>
     )
