@@ -1,5 +1,5 @@
 const axios = require('axios');
-const host = "http://localhost:8000/";
+const host = "https://blooming-tor-01512.herokuapp.com/";
 
 export const api_fetchAllCommentsWithIdsList = async ({postid}) => {
     let comments = await axios.get(host + "post/" + postid + "/comment");

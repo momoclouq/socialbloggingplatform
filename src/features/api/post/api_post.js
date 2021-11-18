@@ -1,5 +1,5 @@
 const axios = require('axios');
-const host = "http://localhost:8000/";
+const host = "https://blooming-tor-01512.herokuapp.com/";
 
 export const api_fetchPublishedPostListWithPage = async ({currentPage, mode}) => {
     let posts = await axios.get(host + "post/published?p=" + currentPage + "&m=" + mode);

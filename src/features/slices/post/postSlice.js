@@ -7,7 +7,7 @@ export const loadPostList = createAsyncThunk(
     async ({currentPage, mode}, { rejectWithValue }) => {
         let posts = await handleError(api_fetchPublishedPostListWithPage, {currentPage, mode}, rejectWithValue);
 
-        return posts.data;
+        return posts;
     }
 )
 
@@ -16,7 +16,7 @@ export const loadPostDetail = createAsyncThunk(
     async (id, {rejectWithValue}) => {
         let post = await handleError(api_fetchPublishedPostDetailWithId, {id}, rejectWithValue);
 
-        return post.data;
+        return post;
     }
 )
 
@@ -42,8 +42,8 @@ export const postSlice = createSlice({
         .addCase(loadPostList.fulfilled, (state, action) => {
             state.isLoadingList = false;
             state.hasErrorList = false;
-            state.postList.data = action.payload.posts;
-            state.postList.count = action.payload.count;
+            state.postList.data = action.payload.data.posts;
+            state.postList.count = action.payload.data.count;
         })
         .addCase(loadPostList.rejected, (state, action) => {
             state.isLoadingList = false;
@@ -57,7 +57,7 @@ export const postSlice = createSlice({
         .addCase(loadPostDetail.fulfilled, (state, action) => {
             state.isLoadingDetail = false;
             state.hasErrorDetail = false;
-            state.postDetail = action.payload.post;
+            state.postDetail = action.payload.data.post;
         })
         .addCase(loadPostDetail.rejected, (state, action) => {
             state.isLoadingDetail = false;

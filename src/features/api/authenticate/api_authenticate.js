@@ -1,8 +1,8 @@
 const axios = require('axios');
-const host = "http://localhost:8000/";
+const host = "https://blooming-tor-01512.herokuapp.com/";
 
 const instance = (token) => axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: 'https://blooming-tor-01512.herokuapp.com/',
     timeout: 3000,
     headers: {'Authorization': 'Bearer '+ token}
   });

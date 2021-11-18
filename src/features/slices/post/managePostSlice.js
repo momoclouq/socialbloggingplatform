@@ -7,7 +7,7 @@ export const loadPersonalPostList = createAsyncThunk(
     async ({currentPage, token}, {rejectWithValue}) => {
         let posts = await handleError(api_fetchPersonalPostListWithPage, {currentPage, token}, rejectWithValue);
 
-        return posts.data;
+        return posts;
     }
 )
 
@@ -83,13 +83,14 @@ export const ManagePostSlice = createSlice({
         .addCase(loadPersonalPostList.fulfilled, (state, action) => {
             state.isLoadingList = false;
             state.hasErrorList = false;
-            state.postList.data = action.payload.posts;
-            state.postList.count = action.payload.count;
+            state.postList.data = action.payload.data.posts;
+            state.postList.count = action.payload.data.count;
         })
         .addCase(loadPersonalPostList.rejected, (state, action) => {
             state.isLoadingList = false;
             state.hasErrorList = true;
-            state.errorMesssage = action.payload.error;
+            console.log(action.payload.error);
+            state.errorMessage = action.payload.error;
         })
         .addCase(deletePost.pending, (state) => {
             state.isDeletingPost = true;
