@@ -29,7 +29,7 @@ const MainRouter = () => {
       }, []);
 
     return (
-        <Router basename={'/socialbloggingplatform/'}>
+        <Router basename="/socialbloggingplatform/">
             <div className="full-height-screen is-flex is-flex-direction-column custom-has-navbar-fixed-top">
                 <Navbar />
 

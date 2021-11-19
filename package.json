@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "src/style/mystyles.scss",
   "private": true,
-  "homepage": "https://momoclouq.github.io/socialbloggingplatform",
+  "homepage": "https://momoclouq.github.io/socialbloggingplatform/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
